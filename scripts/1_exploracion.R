@@ -41,8 +41,8 @@ mx <- st_read("input/México_Estados/México_Estados.shp") %>%
 ## Lo primero es estar segurxs del uso del factor de expansión -----------------------------------------------------------------------------------------------------------------------------------
 
 soc <- ENPOL2021_SOC  %>% 
-  mutate(no_hetero = as.numeric(!P1_23 %in% c(3,8,9))) %>%
-  mutate(trans = as.numeric(P1_22 %in% c(3,4))) %>%
+  mutate(no_hetero = as.numeric(P1_23 %in% c(1,2,4))) %>%
+  mutate(trans = as.numeric(P1_22 %in% c(3,4,5))) %>%
   mutate(FAC_PER = as.numeric(as.character(FAC_PER)),
          EST_DIS = as.numeric(as.character(EST_DIS)),
          FPC = as.numeric(as.character(FPC)), 
@@ -52,7 +52,7 @@ soc <- ENPOL2021_SOC  %>%
                    fpc = FPC)
 
 
-soc %>% 
+  soc %>% 
   group_by(NOM_ENT) %>% 
   summarize(total_personas = survey_total(total, 
                                           na.rm=T, 
@@ -71,6 +71,9 @@ soc %>%
 
 ## Análisis socioeconómico -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+soc %>% 
+    filter(no_hetero == 1 | trans ==1) %>% 
+    summarize(total_personas = survey_total(total) %>%  round())
 
 ### Cruces entre identidad y orientación ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -138,7 +141,7 @@ trans_ent <- soc %>%
   pivot_wider(NOM_ENT, names_from = trans, values_from = total_personas) %>% 
   mutate(percent = round(`1`/`0`,4))
 
-
+trans_ent %>% arrange(-percent)
 
 mx %>%
   left_join(trans_ent) %>% 
@@ -187,6 +190,8 @@ no_hetero_ent <- soc %>%
   ungroup %>% 
   pivot_wider(NOM_ENT, names_from = no_hetero, values_from = total_personas) %>% 
   mutate(percent = round(`1`/`0`,4))
+
+no_hetero_ent %>% arrange(-percent)
 
 mx %>%
   left_join(no_hetero_ent) %>% 
