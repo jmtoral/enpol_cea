@@ -63,7 +63,7 @@ reint %>%
   scale_y_continuous(labels = scales::percent,
                      breaks = seq(0,1,.2)) +
   labs(title="Porcentaje de personas que contestaron que considera que el Centro penitenciario le ha dado las herramientas necesarias para reincorporarse a la vida social",
-       subtitle="por tipo de identidad sexual",
+       subtitle="por tipo de orientación sexual",
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
 
