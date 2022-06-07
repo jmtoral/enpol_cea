@@ -40,7 +40,7 @@ salud <- ENPOL2021_SOC  %>%
 
 salud %>% 
   filter(!P1_29 %in% c(6,8,9)) %>%
-  filter(!P1_22 %in% c(6,8,9)) %>%
+  filter(!P1_22 %in% c(5,6,8,9)) %>%
   group_by(P1_22, P1_29) %>% 
   summarise(prop_personas = survey_mean(na.rm=T, 
                                         vartype = c("ci"), 
@@ -55,29 +55,29 @@ salud %>%
              ) +
   geom_col() +
   facet_wrap(~P1_22)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
-            size=3)+
+  #geom_errorbar(aes(ymin=prop_personas_low, 
+   #                 ymax=prop_personas_upp), width=.2,
+    #            position=position_dodge(.9))+
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
+            size=5)+
   hrbrthemes::theme_ipsum(grid="Y") +
   scale_fill_manual(values = c("#4D6075","#DB6723")) +
   scale_y_continuous(labels = scales::percent,
                      breaks = seq(0,1,.2)) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que pensaron en quitarse o no la vida",
-       subtitle="por tipo de identidad sexual",
+  labs(title="Porcentaje de personas con respecto a si pensó en quitarse la vida",
+       subtitle="por tipo de identidad de género",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
-ggsave("graficas/4_salud_pensamsuic.png", width = 10, height = 8)
+ggsave("graficas/4s_salud_pensamsuic.png", width = 12, height = 8)
 
 
 
 
 salud %>% 
   filter(!P1_30 %in% c(6,8,9)) %>%
-  filter(!P1_22 %in% c(6,8,9)) %>%
+  filter(!P1_22 %in% c(5,6,8,9)) %>%
   filter(!is.na(P1_30)) %>% 
   group_by(P1_22, P1_30) %>% 
   summarise(prop_personas = survey_mean(na.rm=T, 
@@ -93,29 +93,29 @@ salud %>%
   ) +
   geom_col() +
   facet_wrap(~P1_22)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
-            size=3)+
+  #geom_errorbar(aes(ymin=prop_personas_low, 
+   #                 ymax=prop_personas_upp), width=.2,
+    #            position=position_dodge(.9))+
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
+            size=5)+
   hrbrthemes::theme_ipsum(grid="Y") +
   scale_fill_manual(values = c("#4D6075","#DB6723")) +
   scale_y_continuous(labels = scales::percent,
                      breaks = seq(0,1,.2)) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que intentaron o no quitarse la vida",
-       subtitle="por tipo de identidad sexual",
+  labs(title="Porcentaje de personas con respecto a si intentó quitarse la vida",
+       subtitle="por tipo de identidad de género",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
-ggsave("graficas/4_salud_intentosuic.png", width = 10, height = 8)
+ggsave("graficas/4s_salud_intentosuic.png", width = 12, height = 8)
 
 
 
 
 ## LBI
 salud %>% 
-  filter(!P1_29 %in% c(6,8,9)) %>%
+  filter(!P1_29 %in% c(4,6,8,9)) %>%
   filter(!P1_23 %in% c(6,8,9)) %>%
   group_by(P1_23, P1_29) %>% 
   summarise(prop_personas = survey_mean(na.rm=T, 
@@ -131,29 +131,29 @@ salud %>%
   ) +
   geom_col() +
   facet_wrap(~P1_23)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
-            size=3)+
+ # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                  ymax=prop_personas_upp), width=.2,
+   #             position=position_dodge(.9))+
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
+            size=5)+
   hrbrthemes::theme_ipsum(grid="Y") +
   scale_fill_manual(values = c("#4D6075","#DB6723")) +
   scale_y_continuous(labels = scales::percent,
                      breaks = seq(0,1,.2)) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que pensaron o no en quitarse la vida",
+  labs(title="Porcentaje de personas con respecto a si intentaron quitarse la vida",
        subtitle="por tipo de orientación sexual",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
-ggsave("graficas/4_salud_pensamsuic_orientacion.png", width = 10, height = 8)
+ggsave("graficas/4s_salud_pensamsuic_orientacion.png", width = 12, height = 8)
 
 
 
 
 salud %>% 
   filter(!P1_30 %in% c(6,8,9)) %>%
-  filter(!P1_23 %in% c(6,8,9)) %>%
+  filter(!P1_23 %in% c(4,6,8,9)) %>%
   filter(!is.na(P1_30)) %>% 
   group_by(P1_23, P1_30) %>% 
   summarise(prop_personas = survey_mean(na.rm=T, 
@@ -169,22 +169,22 @@ salud %>%
   ) +
   geom_col() +
   facet_wrap(~P1_23)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
-            size=3)+
+  #geom_errorbar(aes(ymin=prop_personas_low, 
+   #                 ymax=prop_personas_upp), width=.2,
+    #            position=position_dodge(.9))+
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
+            size=5)+
   hrbrthemes::theme_ipsum(grid="Y") +
   scale_fill_manual(values = c("#4D6075","#DB6723")) +
   scale_y_continuous(labels = scales::percent,
                      breaks = seq(0,1,.2)) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que intentaron o no quitarse la vida",
+  labs(title="Porcentaje de personas con respecto a si pensaron en quitarse la vida",
        subtitle="por tipo de orientación sexual",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
-ggsave("graficas/4_salud_intentosuic_orientacion.png", width = 10, height = 8)
+ggsave("graficas/4s_salud_intentosuic_orientacion.png", width = 12, height = 6)
 
 
 
@@ -208,9 +208,9 @@ salud %>%
   ) +
   geom_col() +
   facet_wrap(~P1_22)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9))+
   geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
             size=3)+
   hrbrthemes::theme_ipsum(grid="Y") +
@@ -223,7 +223,7 @@ salud %>%
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
 
-ggsave("graficas/4_salud_examenmedico.png", width = 10, height = 8)
+ggsave("graficas/4s_salud_examenmedico.png", width = 10, height = 6)
 
 
 salud %>% 
@@ -243,9 +243,9 @@ salud %>%
   ) +
   geom_col() +
   facet_wrap(~P1_23)+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9))+
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9))+
   geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
             size=3)+
   hrbrthemes::theme_ipsum(grid="Y") +
@@ -344,7 +344,7 @@ primconsumo <- names(ENPOL2021_SOC %>%select(contains("P1_41_")))
 
 drogas_identidad <- lapply(primconsumo, function(i){
   salud %>% 
-    filter(!P1_22 %in% c(6,8,9)) %>% 
+    filter(!P1_22 %in% c(5, 6,8,9)) %>% 
     filter(!!sym(i) %in% c(1,2)) %>% 
     group_by(P1_22, !!sym(i)) %>% 
     summarise(prop_personas = survey_mean(na.rm=T, 
@@ -376,9 +376,9 @@ drogas_identidad %>%
              fill=P1_22, 
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9)) +
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9)) +
   facet_wrap(~variable, ncol=3, scales = "free_x")+
   geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=3)+
@@ -403,7 +403,7 @@ ggsave("graficas/4_salud_drogas_identidad.png", width = 12, height = 12)
 
 drogas_orientacion <- lapply(primconsumo, function(i){
   salud %>% 
-    filter(!P1_23 %in% c(6,8,9)) %>% 
+    filter(!P1_23 %in% c(4,6,8,9)) %>% 
     filter(!!sym(i) %in% c(1,2)) %>% 
     group_by(P1_23, !!sym(i)) %>% 
     summarise(prop_personas = survey_mean(na.rm=T, 
@@ -437,9 +437,9 @@ drogas_orientacion %>%
              fill=P1_23, 
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9)) +
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9)) +
   facet_wrap(~variable, ncol=3, scales = "free_x")+
   geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=3)+
@@ -469,7 +469,7 @@ mesconsumo <- names(ENPOL2021_SOC %>%select(contains("P1_44_")))
 
 drogas_identidad <- lapply(mesconsumo, function(i){
   salud %>% 
-    filter(!P1_22 %in% c(6,8,9)) %>% 
+    filter(!P1_22 %in% c(5, 6,8,9)) %>% 
     filter(!!sym(i) %in% c(1,2)) %>% 
     group_by(P1_22, !!sym(i)) %>% 
     summarise(prop_personas = survey_mean(na.rm=T, 
@@ -509,9 +509,9 @@ drogas_identidad %>%
              fill=P1_22, 
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9)) +
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9)) +
   facet_wrap(~variable, ncol=3, scales = "free_x")+
   geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=3)+
@@ -521,10 +521,10 @@ drogas_identidad %>%
   #guides(fill=guide_legend(title="Identidad"))+
   scale_fill_manual(values = c("#009292","#A52FF5","#F5782F","#D4F50A")) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que habían consumido alguna droga alguna vez en su vida",
+  labs(title="Porcentaje de personas que contestaron que habían consumido alguna droga el último mes",
        subtitle="por tipo de droga e identidad sexual",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
 
 ggsave("graficas/4_salud_drogas_identidad.png", width = 12, height = 12)
@@ -536,12 +536,13 @@ ggsave("graficas/4_salud_drogas_identidad.png", width = 12, height = 12)
 
 drogas_orientacion <- lapply(mesconsumo, function(i){
   salud %>% 
-    filter(!P1_23 %in% c(6,8,9)) %>% 
+    filter(!P1_23 %in% c(4,6,8,9)) %>% 
     filter(!!sym(i) %in% c(1,2)) %>% 
     group_by(P1_23, !!sym(i)) %>% 
     summarise(prop_personas = survey_mean(na.rm=T, 
                                           vartype = c("ci","se"), 
-                                          level = 0.95))%>% 
+                                          level = 0.95),
+              total_personas = survey_total(na.rm=T))%>% 
     ungroup %>% 
     as_tibble() %>% 
     filter(!!sym(i) == 1) %>% 
@@ -550,7 +551,7 @@ drogas_orientacion <- lapply(mesconsumo, function(i){
 })  %>% 
   bind_rows() 
 
-drogas_orientacion <-  drogas %>% 
+drogas_orientacion <-  drogas_orientacion  %>% 
   mutate(P1_23 = recode(P1_23, "1"="Bisexual", "2"="Homosexual","3"="Heterosexual",
                         "4"="Otra")) %>% 
   mutate(variable = recode(variable, "P1_44_1"= "Tabaco" ,"P1_44_2"= "Alcohol",
@@ -570,9 +571,9 @@ drogas_orientacion %>%
              fill=P1_23, 
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
-  geom_errorbar(aes(ymin=prop_personas_low, 
-                    ymax=prop_personas_upp), width=.2,
-                position=position_dodge(.9)) +
+  # geom_errorbar(aes(ymin=prop_personas_low, 
+  #                   ymax=prop_personas_upp), width=.2,
+  #               position=position_dodge(.9)) +
   facet_wrap(~variable, ncol=3, scales = "free_x")+
   geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=3)+
@@ -582,10 +583,10 @@ drogas_orientacion %>%
   #guides(fill=guide_legend(title="Identidad"))+
   scale_fill_manual(values = c("#009292","#A52FF5","#F5782F","#D4F50A")) +
   guides(fill="none")+
-  labs(title="Porcentaje de personas que contestaron que habían consumido alguna droga alguna vez en su vida",
+  labs(title="Porcentaje de personas que contestaron que habían consumido alguna droga el último mes",
        subtitle="por tipo de droga y orientación sexual",
        y="", x="",
-       caption="Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.")
+       caption="Fuente: ENPOL 2021 - INEGI\n")
 
 
 ggsave("graficas/4_salud_drogas_orientacion.png", width = 12, height = 12)

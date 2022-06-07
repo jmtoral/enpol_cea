@@ -479,7 +479,7 @@ tecnico <- lapply(1:6, function(i){
    geom_col(position = "dodge")+
    facet_wrap(~NOMBRE_CAMPO) +
    geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
-             size=5)+
+             size=4)+
    hrbrthemes::theme_ipsum(grid="") +
    scale_y_continuous(
      breaks = seq(0,1,.2),

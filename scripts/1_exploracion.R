@@ -41,8 +41,12 @@ mx <- st_read("input/México_Estados/México_Estados.shp") %>%
 ## Lo primero es estar segurxs del uso del factor de expansión -----------------------------------------------------------------------------------------------------------------------------------
 
 soc <- ENPOL2021_SOC  %>% 
-  mutate(no_hetero = as.numeric(P1_23 %in% c(1,2,4))) %>%
-  mutate(trans = as.numeric(P1_22 %in% c(3,4,5))) %>%
+  mutate(no_hetero = as.numeric(P1_23 %in% c(1,2
+                                             #,4
+                                             ))) %>%
+  mutate(trans = as.numeric(P1_22 %in% c(3,4
+                                         #,5
+                                         ))) %>%
   mutate(FAC_PER = as.numeric(as.character(FAC_PER)),
          EST_DIS = as.numeric(as.character(EST_DIS)),
          FPC = as.numeric(as.character(FPC)), 
@@ -131,7 +135,7 @@ soc %>%
 
 
 trans_ent <- soc %>% 
-  filter(!P1_22 %in% c(8,9)) %>% 
+  filter(!P1_22 %in% c(5, 8,9)) %>% #Sin "otros"
   group_by(NOM_ENT, trans) %>% 
   summarize(total_personas = survey_total(total)) %>% 
   mutate(total_personas = round(total_personas)) %>% 
@@ -181,7 +185,7 @@ ggsave("graficas/tot_edo_trans.png", width = 10, height = 8)
 ### Personas no heterosexuales por entidad -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 no_hetero_ent <- soc %>% 
-  filter(!P1_23 %in% c(8,9)) %>% 
+  filter(!P1_23 %in% c(4,8,9)) %>% 
   group_by(NOM_ENT, no_hetero) %>% 
   summarize(total_personas = survey_total(total)) %>% 
   mutate(total_personas = round(total_personas)) %>% 
@@ -401,10 +405,10 @@ soc %>%
        title="Porcentaje de personas por identidad de género",
        subtitle="y tipo de centro penitenciario",
        caption = "Fuente: ENPOL 2021 - INEGI\nLa línea negra representa el intervalo de confianza a 95%.") +
-  geom_errorbar(aes(ymin=total_personas_low, ymax=total_personas_upp), width=.2,
-                position=position_dodge(.9))+
+ # geom_errorbar(aes(ymin=total_personas_low, ymax=total_personas_upp), width=.2,
+  #              position=position_dodge(.9))+
   geom_text(aes(y=total_personas_upp+0.2), position = position_dodge(0.9), vjust=2,
-            size=3)+
+           size=5)+
   scale_fill_manual(values = c("#11898A", "#8A2017", "#D68A04"),
                     name="Tipo de centro") +
   scale_y_continuous(labels = scales::percent)
@@ -457,10 +461,10 @@ soc %>%
        title="Porcentaje de personas por orientación sexual",
        subtitle="y tipo de centro penitenciario",
        caption = "La línea negra representa el intervalo de confianza.") +
-  geom_errorbar(aes(ymin=total_personas_low, ymax=total_personas_upp), width=.2,
-                position=position_dodge(.9))+
+  #geom_errorbar(aes(ymin=total_personas_low, ymax=total_personas_upp), width=.2,
+   #             position=position_dodge(.9))+
   geom_text(aes(y=total_personas_upp+0.2), position = position_dodge(0.9), vjust=2,
-            size=3)+
+            size=5)+
   scale_fill_manual(values = c("#11898A", "#8A2017", "#D68A04"),
                     name="Tipo de centro") +
   scale_y_continuous(labels = scales::percent)
@@ -571,8 +575,8 @@ noment <- soc %>%
 
 
 sankey_comp <- soc %>%
- # mutate(no_hetero == 1) %>% 
-  #mutate(trans == 1) %>% 
+ mutate(no_hetero == 1) %>% 
+mutate(trans == 1) %>% 
   rename(origen = NOM_ENT) %>% 
   group_by(origen, P1_5, trans) %>% 
   summarise(total_personas = survey_total(na.rm=T) %>% 
@@ -603,4 +607,3 @@ p <- sankeyNetwork(Links = sankey, Nodes = nodes,
                    Source = "IDsource", Target = "IDtarget",
                    Value = "total_personas", NodeID = "name", 
                    sinksRight=F)
-p
