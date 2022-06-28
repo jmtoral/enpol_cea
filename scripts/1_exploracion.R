@@ -143,7 +143,7 @@ trans_ent <- soc %>%
   as_tibble() %>% 
   ungroup %>% 
   pivot_wider(NOM_ENT, names_from = trans, values_from = total_personas) %>% 
-  mutate(percent = round(`1`/`0`,4))
+  mutate(percent = round(`1`/(`0`+`1`),4))
 
 trans_ent %>% arrange(-percent)
 
@@ -154,7 +154,7 @@ mx %>%
   geom_sf(color="white", size=0.8)+
   coord_sf(datum = NA)+
   geom_sf_text_repel(aes(label = percentlabel)) +
-  labs(title = "Porcentaje de PPL transexual, transgénero o travesti",
+  labs(title = "Porcentaje de personas trans privadas de su libertad",
        subtitle = "privadas de la libertad con respecto al total",
        caption = "Fuente: ENPOL 2021 - INEGI",
        x="", y="") +
@@ -193,7 +193,7 @@ no_hetero_ent <- soc %>%
   as_tibble() %>% 
   ungroup %>% 
   pivot_wider(NOM_ENT, names_from = no_hetero, values_from = total_personas) %>% 
-  mutate(percent = round(`1`/`0`,4))
+  mutate(percent = round(`1`/(`0`+`1`),4))
 
 no_hetero_ent %>% arrange(-percent)
 
@@ -209,7 +209,7 @@ mx %>%
                       breaks = 0.025*0:6, 
                       labels = percent(0.025*0:6),
                       limit = c(0,.13)) +
-  labs(title = "Porcentaje de PPL bisexual, homosexual o con otra orientación sexual",
+  labs(title = "Porcentaje de población privada de su libertad bisexual o homosexual",
        subtitle = "con respecto al total de población penitenciaria por estado",
        caption = "Fuente: ENPOL 2021 - INEGI",
        x="", y="") +
@@ -259,14 +259,14 @@ map <- ggplot() +
   coord_sf(datum = NA)+
   labs(
     title = "Proporción de población privada de la libertad LGBTQ+",
-    subtitle = "Porcentaje de PPL bisexuales, homosexuales o con otra preferencia sexual vs. porcentaje de PPL transexual, transgénero o travesti",
+    subtitle = "Porcentaje de bisexuales, homosexuales vs. personas trans",
     caption = "Fuente: ENPOL 2021 - INEGI"
   ) +
   hrbrthemes::theme_ipsum()
 
 legend <- bi_legend(pal = "DkBlue",
                     dim = 3,
-                    xlab = "Mayor % bisexual, homosexual u otra",
+                    xlab = "Mayor % bisexual, homosexual",
                     ylab = "Mayor % trans",
                     size = 10)
 
@@ -287,7 +287,7 @@ ggsave("graficas/tot_edo_bivariate.png", width = 10, height = 8)
 # Reclusorio -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 soc %>% 
-  filter(!P1_23 %in% c(8,9)) %>% 
+  filter(!P1_23 %in% c(4, 8,9)) %>% 
   group_by(NOM_ENT,NOM_INT, FUERO,  no_hetero) %>% 
   summarize(total_personas = round(survey_total( 
                                           na.rm=T, 
@@ -316,7 +316,7 @@ X %>%
   scale_fill_manual(name="Fuero", labels = c("Federal", "Local"),
                     values = c("#F3A200", "#009292"))+
   labs(x="Total de personas", y="",
-       title = "Personas bisexuales, homosexuales o con otra preferencia sexual",
+       title = "Personas bisexuales y homosexuales privadas de su libertad",
        subtitle = "por nombre y tipo de centro penitenciario",
        caption = "Fuente: ENPOL 2021 - INEGI") +
    hrbrthemes::theme_ipsum(grid ="X")+
@@ -336,7 +336,7 @@ ggsave("graficas/nohet_porcentro.jpg", width = 13, height = 12)
 
 
 soc %>% 
-  filter(!P1_23 %in% c(8,9)) %>% 
+  filter(!P1_23 %in% c(5,8,9)) %>% 
   group_by(NOM_ENT,NOM_INT, FUERO,  trans) %>% 
   summarize(total_personas = round(survey_total( 
     na.rm=T, 
@@ -365,7 +365,7 @@ Y %>%
   scale_fill_manual(name="Fuero", labels = c("Federal", "Local"),
                     values = c("#F3A200", "#009292"))+
   labs(x="Total de personas", y="",
-       title = "Personas transexuales, transgénero o travestis",
+       title = "Personas trans privadas de su libertad",
        subtitle = "por nombre y tipo de centro penitenciario",
        caption = "Fuente: ENPOL 2021 - INEGI") +
   hrbrthemes::theme_ipsum(grid ="X")+

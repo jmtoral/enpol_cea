@@ -234,7 +234,7 @@ afecte_nohet |>
   scale_y_continuous(labels = scales::percent)+
   guides(fill="none")+
   #scale_fill_manual(values = c("#009292","#922500","#926e00","#490092")) +
-  labs(title="Porcentaje de personas que consideran que sí se afectaron sus expectativas",
+  labs(title="Porcentaje de personas que consideran que haber estado en algún centro afectó sus perspectivas de reinserción",
        subtitle="al haber estado en algún Centro, con respecto a situación y orientación sexual",
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLos porcentajes no suman 100% porque se comparan con el total por orientación sexual.")
@@ -282,7 +282,7 @@ afecte_trans |>
   scale_y_continuous(labels = scales::percent)+
   guides(fill="none")+
   #scale_fill_manual(values = c("#009292","#922500","#926e00","#490092")) +
-  labs(title="Porcentaje de personas que consideran que sí se afectaron sus expectativas",
+  labs(title="Porcentaje de personas que consideran que haber estado en algún centro afectó sus perspectivas de reinserción",
        subtitle="al haber estado en algún Centro, con respecto a situación e identidad de género",
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLos porcentajes no suman 100% porque se comparan con el total por identidad de género.")

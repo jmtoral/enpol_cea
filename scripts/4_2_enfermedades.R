@@ -350,18 +350,18 @@ serv_identidad |>
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
   facet_wrap(~NOMBRE_CAMPO, scales = "free_y", ncol=2)+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=5)+
   hrbrthemes::theme_ipsum(grid="") +
   scale_y_continuous(labels = scales::percent)+
   guides(fill="none")+
   #scale_fill_manual(values = c("#009292","#922500","#926e00","#490092")) +
-  labs(title="Porcentaje de personas que NO recibieron y servicios proporcionados por el Centro",
+  labs(title="Porcentaje de personas que no recibieron y servicios proporcionados por el Centro",
        subtitle="con respecto a tipo servicio e identidad de género",
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLos porcentajes no suman 100% porque se comparan con el total por identidad de género.")
 
-ggsave("graficas/4serv_orientacion.png", width = 12, height = 10)
+ggsave("graficas/4serv_identidad.png", width = 12, height = 10)
 
 
 
@@ -404,15 +404,15 @@ serv_orientacion |>
              label = str_c(round(prop_personas*100,1),"%"))) +
   geom_col()+
   facet_wrap(~NOMBRE_CAMPO, scales = "free_y", ncol=2)+
-  geom_text(aes(y=prop_personas_upp+0.1), position = position_dodge(0.9), vjust=2,
+  geom_text(aes(y=prop_personas_upp+0.3), position = position_dodge(0.9), vjust=2,
             size=5)+
   hrbrthemes::theme_ipsum(grid="") +
   scale_y_continuous(labels = scales::percent)+
   guides(fill="none")+
  # scale_fill_manual(values = c("#009292","#922500","#926e00","#490092")) +
-  labs(title="Porcentaje de personas que NO recibieron y servicios proporcionados por el Centro",
-       subtitle="con respecto a tipo servicio e identidad de género",
+  labs(title="Porcentaje de personas que no recibieron y servicios proporcionados por el Centro",
+       subtitle="con respecto a tipo servicio y orientación sexual",
        y="", x="",
        caption="Fuente: ENPOL 2021 - INEGI\nLos porcentajes no suman 100% porque se comparan con el total por identidad de género.")
 
-ggsave("graficas/4serv_identidad.png", width = 12, height = 10)
+ggsave("graficas/4serv_orientacion.png", width = 12, height = 10)
